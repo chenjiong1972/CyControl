@@ -1,0 +1,53 @@
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\bin\Release\GB2312Spell.xml
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\bin\Release\UnvaryingSagacity.Core.dll
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\bin\Release\UnvaryingSagacity.Core.pdb
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\bin\Release\UnvaryingSagacity.ExcelExplorer.Interop.dll
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\ResolveAssemblyReference.cache
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.AxAlignSettings.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.AxMainConsole.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.AxUserLogo.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.AxUserLogoPanel.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.CyEditor.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.GeneralForm.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.IntelliSenseForm.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Printer.DlgPageRangeSetting.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Printer.DlgPageSetup.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Printer.FrmPreview.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Printer.FrmProcess.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Properties.Resources.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.TipForm.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.SmartClient.UIBuildPackageForSmartClient.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.UIInfoBrower.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.UISampleObjectEditor.resources
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.dll
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.pdb
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\bin\Release\UnvaryingSagacity.C.dll
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\ResGen.read.1.tlog
+E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\Release\ResGen.write.1.tlog
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\bin\Release\UnvaryingSagacity.C.dll
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\bin\Release\GB2312Spell.xml
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\bin\Release\UnvaryingSagacity.Core.dll
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\bin\Release\UnvaryingSagacity.Core.pdb
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\bin\Release\UnvaryingSagacity.ExcelExplorer.Interop.dll
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.csprojResolveAssemblyReference.cache
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.AxAlignSettings.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.AxMainConsole.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.AxUserLogo.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.AxUserLogoPanel.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.CyEditor.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.GeneralForm.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.IntelliSenseForm.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Printer.DlgPageRangeSetting.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Printer.DlgPageSetup.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Printer.FrmPreview.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Printer.FrmProcess.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.Properties.Resources.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.TipForm.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.SmartClient.UIBuildPackageForSmartClient.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.UIInfoBrower.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.UISampleObjectEditor.resources
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.csproj.GenerateResource.cache
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.csproj.CoreCompileInputs.cache
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.csproj.CopyComplete
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.dll
+C:\Users\chenjiong\source\repos\AccountOfBank\UnvaryingSagacity.Core\obj\Release\UnvaryingSagacity.Core.pdb

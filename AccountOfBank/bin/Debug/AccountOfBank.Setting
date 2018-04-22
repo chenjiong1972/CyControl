@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+    注意: 不建议手动编辑此文件,可能将导致软件无法使用.
+-->
+<config>
+  <appSetting>
+    <!--
+            通过 <appSettings> 节可以配置 
+            软件运行的参数。 
+        -->
+    <lastLogin d="">系统管理员</lastLogin>
+    <accounts>
+      <!--
+            此节描述系统存在的账套,例如:
+            <account id="1001" name="账套1" path="d:\\我的数据\\账套1.data.xsd">说明</account>
+        -->
+    </accounts>
+    <settles>
+      <!--
+            此节描述结算方式
+        -->
+      <settle>其他</settle>
+      <settle>银行汇票</settle>
+      <settle>商业汇票</settle>
+      <settle>银行本票</settle>
+      <settle>支票</settle>
+      <settle>汇兑</settle>
+      <settle>委托收款</settle>
+      <settle>异地托收承付</settle>
+    </settles>
+    <banks>
+      <!--
+            此节描述账户隶属的银行
+        -->
+      <bank>中国银行</bank>
+      <bank>中国建设银行</bank>
+      <bank>中国交通银行</bank>
+      <bank>中国农业银行</bank>
+    </banks>
+  </appSetting>
+  <users>
+    <!-- 
+            通过 <system.user> 节用来 
+            识别进入用户的
+            安全身份验证。
+            注意: 不允许手动编辑此节点的任何内容,否则将导致软件无法使用.
+                  初始密码:88888888
+        -->
+    <user id="1" name="系统管理员" pwd="50131108121965422513747517018262587721316420679391611171709921548914979147146177" key="2e54f13f-fb45-4178-a437-6cca4b006547">
+      <systemRight>0101;</systemRight>
+      <objectRight/>
+    </user>
+  </users>
+  <signa id="signa1">2011122319139131341358964206244191223177253502046220317014020982621891222910262110</signa>
+</config>

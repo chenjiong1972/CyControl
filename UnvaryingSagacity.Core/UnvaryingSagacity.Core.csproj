@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{71BBF595-88E1-4045-B195-E96F4CCCB57E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnvaryingSagacity.Core</RootNamespace>
+    <AssemblyName>UnvaryingSagacity.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnvaryingSagacity.ExcelExplorer.Interop, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AxAlignSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AxAlignSettings.Designer.cs">
+      <DependentUpon>AxAlignSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AxMainConsole.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AxUserLogo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AxUserLogoPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AxUserLogoPanel.Designer.cs">
+      <DependentUpon>AxUserLogoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core.cs" />
+    <Compile Include="CustomPropertyAttributes.cs" />
+    <Compile Include="CyEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CyEditor.designer.cs">
+      <DependentUpon>CyEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CyEditorTextBoxEditingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataSchemaProvider.cs" />
+    <Compile Include="DynamicPropertyDescriptor.cs" />
+    <Compile Include="ExcelExplorer.cs" />
+    <Compile Include="GeneralForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IntelliSenseForm .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IntelliSenseForm .Designer.cs">
+      <DependentUpon>IntelliSenseForm .cs</DependentUpon>
+    </Compile>
+    <Compile Include="LicenseContent.cs" />
+    <Compile Include="NetWorkApp.cs" />
+    <Compile Include="Printer\DlgPageRangeSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Printer\DlgPageRangeSetting.Designer.cs">
+      <DependentUpon>DlgPageRangeSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Printer\PrintEventArgs.cs" />
+    <Compile Include="Printer\DlgPageSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Printer\DlgPageSetup.designer.cs">
+      <DependentUpon>DlgPageSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Printer\EnumInfo.cs" />
+    <Compile Include="Printer\FrmPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Printer\FrmPreview.designer.cs">
+      <DependentUpon>FrmPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Printer\FrmProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Printer\FrmProcess.designer.cs">
+      <DependentUpon>FrmProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Printer\IPrintAssign.cs" />
+    <Compile Include="Printer\PageSetup.cs" />
+    <Compile Include="Printer\PrintAssign.cs" />
+    <Compile Include="Printer\PrintData.cs" />
+    <Compile Include="Printer\StructInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SampleObjectEditor.cs" />
+    <Compile Include="SerialPortTrans.cs" />
+    <Compile Include="SmartClient.cs" />
+    <Compile Include="TextBoxImeOnHalf.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TipForm.Designer.cs">
+      <DependentUpon>TipForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIBuildPackageForSmartClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIBuildPackageForSmartClient.Designer.cs">
+      <DependentUpon>UIBuildPackageForSmartClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIInfoBrower.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIInfoBrower.Designer.cs">
+      <DependentUpon>UIInfoBrower.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UISampleObjectEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UISampleObjectEditor.Designer.cs">
+      <DependentUpon>UISampleObjectEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserAndRight.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AxAlignSettings.resx">
+      <DependentUpon>AxAlignSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AxMainConsole.resx">
+      <DependentUpon>AxMainConsole.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AxUserLogo.resx">
+      <DependentUpon>AxUserLogo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AxUserLogoPanel.resx">
+      <DependentUpon>AxUserLogoPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CyEditor.resx">
+      <DependentUpon>CyEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeneralForm.resx">
+      <DependentUpon>GeneralForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IntelliSenseForm .resx">
+      <DependentUpon>IntelliSenseForm .cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Printer\DlgPageRangeSetting.resx">
+      <DependentUpon>DlgPageRangeSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Printer\DlgPageSetup.resx">
+      <DependentUpon>DlgPageSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Printer\FrmPreview.resx">
+      <DependentUpon>FrmPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Printer\FrmProcess.resx">
+      <DependentUpon>FrmProcess.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TipForm.resx">
+      <DependentUpon>TipForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIBuildPackageForSmartClient.resx">
+      <DependentUpon>UIBuildPackageForSmartClient.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIInfoBrower.resx">
+      <DependentUpon>UIInfoBrower.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UISampleObjectEditor.resx">
+      <DependentUpon>UISampleObjectEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="defultLogo.png" />
+    <Content Include="ExcelExplorer.dll" />
+    <Content Include="GB2312Spell.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\arrow_1.gif" />
+    <None Include="Resources\流程箭头.png" />
+    <None Include="Resources\imageres.dll_I0052_0409.png" />
+    <None Include="Resources\netshell.dll_I0643_0409.png" />
+    <Content Include="UnvaryingSagacity.C.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UnvaryingSagacity.ExcelExplorer.Interop.dll" />
+    <None Include="Resources\next-horizontal[1].gif" />
+    <None Include="Resources\prev-horizontal[1].gif" />
+    <None Include="Properties\defultLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
