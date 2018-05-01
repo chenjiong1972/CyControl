@@ -30,3 +30,5 @@ E:\git\CyControl\AccountOfBank\bin\Debug\UnvaryingSagacity.ExcelExplorer.Interop
 E:\git\CyControl\AccountOfBank\bin\Debug\UnvaryingSagacity.Core.pdb
 E:\git\CyControl\AccountOfBank\obj\Debug\AccountOfBank.exe
 E:\git\CyControl\AccountOfBank\obj\Debug\AccountOfBank.pdb
+E:\git\CyControl\AccountOfBank\obj\Debug\UnvaryingSagacity.AccountOfBank.Form2.resources
+E:\git\CyControl\AccountOfBank\obj\Debug\UnvaryingSagacity.AccountOfBank.FrmVchView.resources

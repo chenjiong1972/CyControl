@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace UnvaryingSagacity.Core
 {
-    class CyEditorTextBoxEditingControl:CyEditor ,IDataGridViewEditingControl 
+    public class CyEditorTextBoxEditingControl:CyEditor ,IDataGridViewEditingControl 
     {
         protected int rowIndex;
         protected DataGridView dataGridView;
@@ -16,6 +16,12 @@ namespace UnvaryingSagacity.Core
         {
             this.ValidatingType = typeof(string);
             this.Mode = DisplayMode.金额; 
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            Console.WriteLine("CyEditorTextBoxEditingControl.ProcessDialogKey");
+            return base.ProcessDialogKey(keyData);
         }
 
         public virtual Type ValidatingType
@@ -101,6 +107,7 @@ namespace UnvaryingSagacity.Core
         //  control; otherwise if the DataGridView doesn't want the input key then let the editing control handle it.
         public bool EditingControlWantsInputKey(Keys keyData, bool dataGridViewWantsInputKey)
         {
+            Console.WriteLine("EditingControlWantsInputKey:{0}", dataGridViewWantsInputKey);
             //switch (keyData & Keys.KeyCode)
             //{
             //    case Keys.Right:

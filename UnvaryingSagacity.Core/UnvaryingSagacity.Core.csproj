@@ -116,7 +116,9 @@
     <Compile Include="CyEditorTextBoxEditingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DataSchemaProvider.cs" />
+    <Compile Include="DataSchemaProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DynamicPropertyDescriptor.cs" />
     <Compile Include="ExcelExplorer.cs" />
     <Compile Include="GeneralForm.cs">

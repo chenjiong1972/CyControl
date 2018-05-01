@@ -11,17 +11,28 @@ namespace UnvaryingSagacity.AccountOfBank
     {
         protected override bool ProcessDialogKey(Keys keyData)
         {
+            
             Keys key = (keyData & Keys.KeyCode);
             if (key == Keys.Enter)
             {
                 return this.ProcessRightKey(keyData);
             }
+            else if (keyData == Keys.Right)
+            {
+                Console.WriteLine("ProcessDialogKey");
+                return base.ProcessRightKey(keyData);
+            }
+            else if (keyData == Keys.Left)
+            {
+                Console.WriteLine("ProcessDialogKey");
+                return base.ProcessLeftKey(keyData);
+            }
             return base.ProcessDialogKey(keyData);
         }
 
-
         public new bool ProcessRightKey(Keys keyData)
         {
+            Console.WriteLine("ProcessRightKey");
             Keys key = (keyData & Keys.KeyCode);
             if (key == Keys.Enter)
             {

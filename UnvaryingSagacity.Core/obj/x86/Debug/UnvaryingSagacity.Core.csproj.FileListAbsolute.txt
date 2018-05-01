@@ -22,3 +22,27 @@ E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\bin
 E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\bin\x86\Debug\UnvaryingSagacity.ExcelExplorer.Interop.dll
 E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.dll
 E:\Visual Studio 2008\Projects\UnvaryingSagacity.Core\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.pdb
+E:\git\CyControl\UnvaryingSagacity.Core\bin\x86\Debug\UnvaryingSagacity.C.dll
+E:\git\CyControl\UnvaryingSagacity.Core\bin\x86\Debug\GB2312Spell.xml
+E:\git\CyControl\UnvaryingSagacity.Core\bin\x86\Debug\UnvaryingSagacity.Core.dll
+E:\git\CyControl\UnvaryingSagacity.Core\bin\x86\Debug\UnvaryingSagacity.Core.pdb
+E:\git\CyControl\UnvaryingSagacity.Core\bin\x86\Debug\UnvaryingSagacity.ExcelExplorer.Interop.dll
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.AxAlignSettings.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.AxMainConsole.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.AxUserLogo.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.AxUserLogoPanel.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.CyEditor.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.GeneralForm.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.IntelliSenseForm.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.Printer.DlgPageRangeSetting.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.Printer.DlgPageSetup.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.Printer.FrmPreview.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.Printer.FrmProcess.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.Properties.Resources.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.TipForm.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.SmartClient.UIBuildPackageForSmartClient.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.UIInfoBrower.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.UISampleObjectEditor.resources
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.csproj.GenerateResource.Cache
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.dll
+E:\git\CyControl\UnvaryingSagacity.Core\obj\x86\Debug\UnvaryingSagacity.Core.pdb

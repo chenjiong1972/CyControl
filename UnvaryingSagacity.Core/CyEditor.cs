@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Timers;
 namespace UnvaryingSagacity.Core
 {
     public partial class CyEditor : UserControl
@@ -33,11 +33,16 @@ namespace UnvaryingSagacity.Core
         int _index = 2;//当前光标的文本位置,缺省在金额元
         bool _autoDrawCursor = true ;
         bool _isSub = false;
+
+        System.Timers.Timer _timer1 = new  System.Timers.Timer(500);
+        
         public Font CyTitleFont { get; set; }
         public Font CyTextFont { get; set; }
         public DisplayMode Mode { get; set; }
         public bool ReadOnly { get; set; }
         public bool DisplayZero { get; set; }
+
+        ShowCusorHandle ShowCursorCallback;
 
         public override string Text
         {
@@ -96,7 +101,8 @@ namespace UnvaryingSagacity.Core
             this.KeyPress += new KeyPressEventHandler(CyEditor_KeyPress);
             this.KeyUp += new KeyEventHandler(CyEditor_KeyUp);
             this.Paint += new PaintEventHandler(CyEditor_Paint);
-            this.timer1.Tick += new EventHandler(timer1_Tick);
+            //this.timer1.Tick += new EventHandler(timer1_Tick);
+            this._timer1.Elapsed += _timer_Elapsed;
             this.VisibleChanged += new EventHandler(CyEditor_VisibleChanged);
             this.GotFocus += new EventHandler(CyEditor_GotFocus);
             this.LostFocus += new EventHandler(CyEditor_LostFocus);
@@ -110,6 +116,34 @@ namespace UnvaryingSagacity.Core
               
         }
 
+        /// <summary>
+        /// 需要在本控件的父容器(逐级直到Form)中重写ProcessDialogKey方法，把“keyData”传递过来
+        /// </summary>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            Console.WriteLine("CyEditor.ProcessDialogKey");
+            bool b = false;
+            switch (keyData)
+            {
+               case Keys.Right:
+                    b=MoveCursor(-1);
+                    break;
+                case Keys.Left:
+                    b=MoveCursor(1);
+                    break;
+                default:
+                    break;
+            }
+            ///返回True表示不需要上级容器再处理，否则上级容器会按自动规则处理
+            return b;
+        }
+
+        void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            ShowCursor();
+        }
 
         void CyEditor_FontChanged(object sender, EventArgs e)
         {
@@ -136,12 +170,14 @@ namespace UnvaryingSagacity.Core
 
         void CyEditor_LostFocus(object sender, EventArgs e)
         {
+            Console.WriteLine("CyEditor_LostFocus");
             _index = 2;
             ClearCursor();
         }
 
         void CyEditor_GotFocus(object sender, EventArgs e)
         {
+            Console.WriteLine("CyEditor_GotFocus");
             _autoDrawCursor = true;
             DrawCursor(Graphics.FromHwnd(this.Handle));
         }
@@ -164,14 +200,28 @@ namespace UnvaryingSagacity.Core
             DrawCursor(e.Graphics);
         }
 
-        void timer1_Tick(object sender, EventArgs e)
-        {
-            _autoDrawCursor = !_autoDrawCursor;
-            this.Invalidate(Rectangle.Ceiling(new RectangleF(0, ptCyCursor.Y, this.Width, CURSOR_HEIGHT)), false);
+        void ShowCursor() {
+            if (this.InvokeRequired)
+            {
+                ShowCursorCallback = ShowCursor;
+                this.Invoke(ShowCursorCallback);
+            }
+            else
+            {
+                _autoDrawCursor = !_autoDrawCursor;
+                this.Invalidate(Rectangle.Ceiling(new RectangleF(0, ptCyCursor.Y, this.Width, CURSOR_HEIGHT)), false);
+            }
         }
+
+        //void timer1_Tick(object sender, EventArgs e)
+        //{
+        //    _autoDrawCursor = !_autoDrawCursor;
+        //    this.Invalidate(Rectangle.Ceiling(new RectangleF(0, ptCyCursor.Y, this.Width, CURSOR_HEIGHT)), false);
+        //}
 
         void CyEditor_KeyUp(object sender, KeyEventArgs e)
         {
+            Console.WriteLine("CyEditor_KeyUp:{0}", e.KeyCode);
             switch (e.KeyCode)
             {
                 case Keys.Delete :
@@ -194,6 +244,7 @@ namespace UnvaryingSagacity.Core
 
         void CyEditor_KeyPress(object sender, KeyPressEventArgs e)
         {
+            Console.WriteLine("CyEditor_KeyPress:{0}", e.KeyChar);
             if (ReadOnly)
                 return;
             if (e.KeyChar == (char)8)
@@ -278,15 +329,23 @@ namespace UnvaryingSagacity.Core
             base.OnTextChanged(e);
         }
 
-        void MoveCursor(int offset)
+        public bool MoveCursor(int offset)
         {
+            bool b = true;
             _index += offset;
             if (_index > (sb.Length + 2))
+            {
                 _index = sb.Length + 2;
+                b = false;
+            }
             if (_index < 0)
+            {
                 _index = 0;
+                b = false;
+            }
             _autoDrawCursor = true;
             ClearCursor();
+            return b;
         }
 
         void GetCursorPoint()
@@ -314,7 +373,7 @@ namespace UnvaryingSagacity.Core
 
         void ClearCursor()
         {
-            timer1.Enabled = false;
+            //timer1.Enabled = false;
             this.Invalidate(Rectangle.Ceiling(new RectangleF(0, ptCyCursor.Y, this.Width, CURSOR_HEIGHT)), false);
         }
 
@@ -366,8 +425,8 @@ namespace UnvaryingSagacity.Core
                     GetCursorPoint(); 
                     g.DrawImageUnscaled(Properties.Resources.arrow_1, Point.Ceiling(ptCyCursor));
                 }
-                if (!timer1.Enabled)
-                    timer1.Enabled = true;
+                if (!_timer1.Enabled)
+                    _timer1.Enabled = true;
             }
         }
 
@@ -457,4 +516,6 @@ namespace UnvaryingSagacity.Core
         金额,
 
     }
+
+    public delegate void ShowCusorHandle();
 }

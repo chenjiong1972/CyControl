@@ -14,7 +14,7 @@ namespace UnvaryingSagacity.AccountOfBank
     public partial class Form1 : Form
     {
         private DateTime _defaultDate = DateTime.Today;
-        private UIState _currentState = UIState.None;//当前状态;0=无;1=editor;2=view
+        private UIState _currentState = UIState.View;//当前状态;0=无;1=editor;2=view
 
         public Form1()
         {
@@ -23,9 +23,35 @@ namespace UnvaryingSagacity.AccountOfBank
             dataGridView1.CellPainting += new DataGridViewCellPaintingEventHandler(dataGridView1_CellPainting);
             dataGridView1.DefaultValuesNeeded += new DataGridViewRowEventHandler(dataGridView1_DefaultValuesNeeded);
             dataGridView1.CellValidating += new DataGridViewCellValidatingEventHandler(dataGridView1_CellValidating);
-            dataGridView1.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(dataGridView1_EditingControlShowing);
+            //dataGridView1.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(dataGridView1_EditingControlShowing);
             dataGridView1.CellValueChanged += new DataGridViewCellEventHandler(dataGridView1_CellValueChanged);
             dataGridView1.KeyUp += new KeyEventHandler(dataGridView1_KeyUp);
+            
+            dataGridView1.ColumnWidthChanged += dataGridView1_ColumnWidthChanged;
+            dataGridView1.CellClick += dataGridView1_CellClick;
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (keyData == Keys.Right)
+            {
+                return false;
+            }
+            else if (keyData == Keys.Left)
+            {
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
+        }
+
+        void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView1.BeginEdit(false);
+        }
+
+        void dataGridView1_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            textBox1.Text = e.Column.Index.ToString();
         }
 
         void Form1_Load(object sender, EventArgs e)
@@ -55,7 +81,7 @@ namespace UnvaryingSagacity.AccountOfBank
             }
             _defaultDate = d;
 
-            dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter; //EditOnKeystroke;// .EditProgrammatically;
+            dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically; //EditOnEnter; //EditOnKeystroke;// .EditProgrammatically;
 
 
             CustomDataGridView grid = dataGridView1;
@@ -71,7 +97,7 @@ namespace UnvaryingSagacity.AccountOfBank
             grid[5, i].Value = "dfgdhfgh";
             grid[6, i].Value = "fhfgjghjghkjhgkgjkgh";
             
-                grid[7, i].Value = 1345234543.ToString("0.00");
+                grid[7, i].Value = 134523.45.ToString("0.00");
             
                 grid[8, i].Value = 456456.ToString("0.00");
             
@@ -101,6 +127,7 @@ namespace UnvaryingSagacity.AccountOfBank
 
         void dataGridView1_KeyUp(object sender, KeyEventArgs e)
         {
+            Console.WriteLine("dataGridView1_KeyUp：{0}",e.KeyCode); 
             if (e.KeyCode == Keys.Return && (sender as Control).Name == "dataGridView1")
             {
                 //第一种情况：最末行
@@ -138,6 +165,7 @@ namespace UnvaryingSagacity.AccountOfBank
 
         void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
+            
             if ((e.ColumnIndex >= 7 && e.ColumnIndex <= 8) || (e.ColumnIndex >= 0 && e.ColumnIndex <= 1) || (e.ColumnIndex == 3))
             {
                 try
@@ -156,12 +184,10 @@ namespace UnvaryingSagacity.AccountOfBank
                                 if (e.ColumnIndex == 7)
                                 {
                                     dataGridView1[8, e.RowIndex].Value = "";
-                                    CalcBal(e.RowIndex);
                                 }
                                 else if (e.ColumnIndex == 8)
                                 {
                                     dataGridView1[7, e.RowIndex].Value = "";
-                                    CalcBal(e.RowIndex);
                                 }
                             }
                         }
@@ -179,6 +205,7 @@ namespace UnvaryingSagacity.AccountOfBank
 
         void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
+            Console.WriteLine("dataGridView1_EditingControlShowing"); 
             e.Control.KeyPress += new KeyPressEventHandler(Control_KeyPress);
             //if (e.Control is TextBox && ((sender as DataGridView ).CurrentCell.ColumnIndex ==6 ))
             //{
@@ -257,8 +284,8 @@ namespace UnvaryingSagacity.AccountOfBank
 
                     string[] ss = e.Value.ToString().Split(";".ToCharArray());
                     e.Graphics.DrawString(ss[0], new Font(e.CellStyle.Font.Name, 9), new SolidBrush(e.CellStyle.ForeColor), rtYear, _sf);
-                    e.Graphics.DrawString(ss[1], e.CellStyle.Font, new SolidBrush(e.CellStyle.ForeColor), rtMonth, _sf);
-                    e.Graphics.DrawString(ss[2], e.CellStyle.Font, new SolidBrush(e.CellStyle.ForeColor), rtDay, _sf);
+                    e.Graphics.DrawString(ss[1], new Font(e.CellStyle.Font.Name, 9), new SolidBrush(e.CellStyle.ForeColor), rtMonth, _sf);
+                    e.Graphics.DrawString(ss[2], new Font(e.CellStyle.Font.Name, 9), new SolidBrush(e.CellStyle.ForeColor), rtDay, _sf);
                 }
                 e.Handled = true;
             }
@@ -283,6 +310,11 @@ namespace UnvaryingSagacity.AccountOfBank
                         string s = e.FormattedValue.ToString();
                         s = s.Replace(".", "");
                         DrawTextContent(e, s, rtfs, rtCyBound, _charFullWidth, _charWidth);
+                        if (dataGridView1.SelectedColumns.Contains(dataGridView1.Columns[e.ColumnIndex]) && dataGridView1.SelectedRows.Contains(dataGridView1.Rows[e.RowIndex]))
+                        {
+                            Pen pen2 = new Pen(Color.Red, 2F);
+                            e.Graphics.DrawRectangle(pen2, e.CellBounds);
+                        }
                         e.Handled = true;
                     }
                 }
@@ -508,6 +540,7 @@ namespace UnvaryingSagacity.AccountOfBank
             cs[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             cs[i].Width = 27;
             cs[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            cs[i].Resizable = DataGridViewTriState.False;
             cs[i].HeaderText = "记账凭证;字;号";// "凭证字";
             cs[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             cs[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -516,6 +549,7 @@ namespace UnvaryingSagacity.AccountOfBank
             cs[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             cs[i].Width = 27;
             cs[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            cs[i].Resizable = DataGridViewTriState.False;
             cs[i].HeaderText = "号";// "凭证号";
             cs[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             cs[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -524,6 +558,7 @@ namespace UnvaryingSagacity.AccountOfBank
             cs[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             cs[i].Width = 40;
             cs[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            cs[i].Resizable = DataGridViewTriState.False;
             cs[i].HeaderText = "支票;种类;号码";// "支票号";
             cs[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             cs[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -532,6 +567,7 @@ namespace UnvaryingSagacity.AccountOfBank
             cs[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             cs[i].Width = 40;
             cs[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            cs[i].Resizable = DataGridViewTriState.False;
             cs[i].HeaderText = "号码";//"支票号";
             cs[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             cs[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -544,7 +580,8 @@ namespace UnvaryingSagacity.AccountOfBank
             i++;
             cs[i] = new CyEditorTextBoxColumn();
             cs[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-            cs[i].Width = 160;
+            cs[i].Width = 128;
+            cs[i].Resizable = DataGridViewTriState.False;
             cs[i].CellTemplate.Style.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             cs[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             cs[i].HeaderText = "借  方";
@@ -553,7 +590,8 @@ namespace UnvaryingSagacity.AccountOfBank
             i++;
             cs[i] = new CyEditorTextBoxColumn();
             cs[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-            cs[i].Width = 160;
+            cs[i].Width = 126;
+            cs[i].Resizable = DataGridViewTriState.False;
             cs[i].CellTemplate.Style.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             cs[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             cs[i].HeaderText = "贷  方";
@@ -562,10 +600,11 @@ namespace UnvaryingSagacity.AccountOfBank
             i++;
             cs[i] = new CyEditorTextBoxColumn();
             cs[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-            cs[i].Width = 160;
+            cs[i].Width = 127;
             cs[i].CellTemplate.Style.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             cs[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             cs[i].HeaderText = "余  额";
+            cs[i].Resizable = DataGridViewTriState.False;
             cs[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             cs[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             cs[i].ReadOnly = true;
@@ -576,6 +615,7 @@ namespace UnvaryingSagacity.AccountOfBank
             cs[i].CellTemplate.Style.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             cs[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             cs[i].HeaderText = "保存";
+            cs[i].Resizable = DataGridViewTriState.False;
             cs[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             cs[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             cs[i].ReadOnly = true;

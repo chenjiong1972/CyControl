@@ -25,7 +25,7 @@ namespace UnvaryingSagacity.AccountOfBank
             //    }
             //    System.IO.File.Copy(Application.StartupPath + fileName, Application.CommonAppDataPath + fileName);
             //}
-            Application.Run(new Form1());
+            Application.Run(new FrmVchView());
             return;
 //            #region 建立数据模板
 //#if(DEBUG)
