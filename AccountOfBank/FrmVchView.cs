@@ -11,17 +11,35 @@ using UnvaryingSagacity.Core;
 
 namespace UnvaryingSagacity.AccountOfBank
 {
-    public partial class FrmVchView : Form
+    public partial class FrmVchView : Form, IVchViewForm
     {
+        /// <summary>
+        /// FORM级别的焦点循环
+        /// </summary>
         private Control[] _seqOfTabKey;
-        private int[] _seqColumnOfTabKey;
-        private int _currentIndexOfFocus;
+
+        /// <summary>
+        /// 分录网格控制的焦点循环
+        /// </summary>
+        private Control[] _seqSlaveTabKey;
+
+        private int _currentIndexOfFocus = 0;
+        private int _currentSlaveIndexOfFocus = 0;
 
         public bool RadOnly { get; set; }
 
         public FrmVchView()
         {
             InitializeComponent();
+            _seqOfTabKey = new Control[]{
+           textBox5,textBox6,textBox7,textBox8,
+           dataGridView1
+           };
+            _seqSlaveTabKey = new Control[]{
+           dataGridView1,textBox1,textBox2,textBox3,textBox4
+           ,dataGridView2
+           };
+
             InitControlEvents();
             this.Load += FrmVchView_Load;
             this.Shown += FrmVchView_Shown;
@@ -39,59 +57,6 @@ namespace UnvaryingSagacity.AccountOfBank
         }
 
         /// <summary>
-        /// 设置控件的输入焦点
-        /// </summary>
-        /// <param name="step">-1=后移;0=回到第一个;1=前移</param>
-        void SetControlFocus(int step)
-        {
-            if (RadOnly)
-                return;
-            if (step == 0)
-            {
-                _seqOfTabKey[0].Focus();
-                _currentIndexOfFocus = 0;
-            }
-            else
-            {
-                ///如果当前激活控件是网格，则另行处理；
-                if (_seqOfTabKey[_currentIndexOfFocus] is VchDataGridView)
-                {
-                    return;
-                }
-                ///检查当前控件是否输入正确
-                ///如果正确，则执行以下代码
-                if (step == 1)
-                {
-                    for (int i = _currentIndexOfFocus + 1; i < _seqOfTabKey.Length; i++)
-                    {
-                        if (_seqOfTabKey[i].Enabled)
-                        {
-                            if (_seqOfTabKey[i].Focus())
-                            {
-                                _currentIndexOfFocus = i;
-                                break;
-                            }
-                        }
-                    }
-                }
-                else if (step == -1)
-                {
-                    for (int i = _currentIndexOfFocus - 1; i >=0; i--)
-                    {
-                        if (_seqOfTabKey[i].Enabled)
-                        {
-                            if (_seqOfTabKey[i].Focus())
-                            {
-                                _currentIndexOfFocus = i;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// 不应重入
         /// </summary>
         void InitControlEvents()
@@ -102,7 +67,51 @@ namespace UnvaryingSagacity.AccountOfBank
                 l.Paint += attachLabel_Paint;
             }
             dataGridView1.ColumnWidthChanged += dataGridView1_ColumnWidthChanged;
+            ///dataGridView1设置了两次GotFocus事件
+            foreach (Control c in _seqOfTabKey)
+            {
+                c.GotFocus += Control_GotFocus;
+            }
+            foreach (Control c in _seqSlaveTabKey)
+            {
+                c.GotFocus += SlaveControl_GotFocus;
+            }
+        }
 
+        /// <summary>
+        /// 网格在编辑状态时，Focused属性不可靠,所以用本事件设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Control_GotFocus(object sender, EventArgs e)
+        {
+            for (int i=0;i<_seqOfTabKey.Length;i++)
+            {
+                Control c = _seqOfTabKey[i];
+                if (c.Name.Equals((sender as Control).Name))
+                {
+                    _currentIndexOfFocus = i;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 网格在编辑状态时，Focused属性不可靠,所以用本事件设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void SlaveControl_GotFocus(object sender, EventArgs e)
+        {
+            for (int i = 0; i < _seqSlaveTabKey.Length; i++)
+            {
+                Control c = _seqSlaveTabKey[i];
+                if (c.Name.Equals((sender as Control).Name))
+                {
+                    _currentSlaveIndexOfFocus = i;
+                    break;
+                }
+            }
         }
 
         /// <summary>
@@ -111,33 +120,26 @@ namespace UnvaryingSagacity.AccountOfBank
         /// </summary>
         void InitControlStyle()
         {
-           _seqOfTabKey =new Control[]{
-           textBox5,textBox6,textBox7,textBox8,
-           //dataGridView1,
-           textBox1,textBox2,textBox3,textBox4
-           };
-           _seqColumnOfTabKey = new int[]{
-           1,2,3,4,5
-           };
-           foreach (DataGridView grid in new DataGridView[3] { dataGridView1, dataGridView2, dataGridViewFoot })
-           {
-               foreach (DataGridViewColumn col in dataGridView1.Columns)
-               {
-                   if (col is CyEditorTextBoxColumn)
-                   {
-                       col.CellTemplate.Style.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-                   }
-               }
-           }
-           SysnDataGridViewColumnWidth();
+            foreach (DataGridView grid in new DataGridView[3] { dataGridView1, dataGridView2, dataGridViewFoot })
+            {
+                foreach (DataGridViewColumn col in grid.Columns)
+                {
+                    if (col is CyEditorTextBoxColumn)
+                    {
+                        col.CellTemplate.Style.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+                    }
+                }
+            }
+            SysnDataGridViewColumnWidth();
         }
 
         void InitControlData()
         {
-            dataGridView1.Rows.Add(100);
-            DateTime dt=DateTime.Now;
-            textBox6.Text=dt.Year.ToString();
-            textBox7.Text=dt.Month.ToString();
+            dataGridView1.Rows.Add(3);
+            dataGridView2.Rows.Add(3);
+            DateTime dt = DateTime.Now;
+            textBox6.Text = dt.Year.ToString();
+            textBox7.Text = dt.Month.ToString();
             textBox8.Text = dt.Day.ToString();
         }
 
@@ -148,7 +150,112 @@ namespace UnvaryingSagacity.AccountOfBank
             dataGridViewFoot.Columns[3].Width = (dataGridView1.Columns[dataGridView1.Columns.Count - 1].Width);
         }
 
-        void attachLabel_Paint(object sender, PaintEventArgs e) 
+        /// <summary>
+        /// 设置控件的输入焦点
+        /// 不处理输入焦点dataGridView1,textBox1,textBox2,textBox3,textBox4,dataGridView2在之间的循环移动
+        /// </summary>
+        /// <param name="step">-1=后移;0=回到第一个;1=前移</param>
+        bool SetControlFocus(int step)
+        {
+            if (RadOnly)
+                return false;
+            if (step == 0)
+            {
+                if (_seqOfTabKey[0].Enabled)
+                {
+                    _seqOfTabKey[0].Focus();
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                ///检查当前控件是否输入正确
+                ///如果正确，则执行以下代码
+                if (step == 1)
+                {
+                    for (int i = _currentIndexOfFocus + 1; i < _seqOfTabKey.Length; i++)
+                    {
+                        if (_seqOfTabKey[i].Enabled)
+                        {
+                            if (_seqOfTabKey[i].Focus())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                else if (step == -1)
+                {
+                    for (int i = _currentIndexOfFocus - 1; i >= 0; i--)
+                    {
+                        if (_seqOfTabKey[i].Enabled)
+                        {
+                            if (_seqOfTabKey[i].Focus())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 控制输入焦点dataGridView1,textBox1,textBox2,textBox3,textBox4,dataGridView2在之间的循环移动
+        /// </summary>
+        /// <param name="step"></param>
+        bool SetEntryControlFocus(int step)
+        {
+            if (RadOnly)
+                return false;
+            if (step == 0)
+            {
+                if (_seqSlaveTabKey[0].Enabled)
+                {
+                    _seqSlaveTabKey[0].Focus();
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                ///检查当前控件是否输入正确
+                ///如果正确，则执行以下代码
+                if (step == 1)
+                {
+                    for (int i = _currentSlaveIndexOfFocus + 1; i < _seqSlaveTabKey.Length; i++)
+                    {
+                        if (_seqSlaveTabKey[i].Enabled)
+                        {
+                            if (_seqSlaveTabKey[i].Focus())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    ///处于焦点循环中，最后一个应跳回到第一个
+                    return SetEntryControlFocus(0);
+                }
+                else if (step == -1)
+                {
+                    for (int i = _currentSlaveIndexOfFocus - 1; i >= 0; i--)
+                    {
+                        if (_seqSlaveTabKey[i].Enabled)
+                        {
+                            if (_seqSlaveTabKey[i].Focus())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        void attachLabel_Paint(object sender, PaintEventArgs e)
         {
             ///如果主管等的内容需要显示有颜色的外框时，执行以下代码
             if (!string.IsNullOrWhiteSpace((sender as Label).Text))
@@ -168,18 +275,29 @@ namespace UnvaryingSagacity.AccountOfBank
         {
             Console.WriteLine("Form.ProcessDialogKey");
             ///在datagridview中就由datagridview控制
-            if (keyData == (keyData | Keys.Tab) || keyData == (keyData |Keys.Enter))
+            if (keyData == (keyData | Keys.Tab) || keyData == (keyData | Keys.Enter))
             {
                 if (keyData == (keyData | Keys.Shift))
                 {
                     SetControlFocus(-1);
                 }
-                else {
+                else
+                {
                     SetControlFocus(1);
                 }
                 return true;
             }
             return base.ProcessDialogKey(keyData);
+        }
+
+        bool IVchViewForm.SetControlFocus(bool isSlave, int step)
+        {
+            if (!isSlave)
+            {
+                return this.SetControlFocus(step);
+            }
+            else
+                return this.SetEntryControlFocus(step);
         }
     }
 
@@ -212,7 +330,30 @@ namespace UnvaryingSagacity.AccountOfBank
             }
             return base.ProcessDataGridViewKey(e);
         }
-        
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            Console.WriteLine("VchDataGridView.ProcessDialogKey");
+            if (this.CurrentCell.OwningColumn is CyEditorTextBoxColumn)
+            {
+                return false;
+            }
+            else if (keyData == (keyData | Keys.Tab) || keyData == (keyData | Keys.Enter))
+            {
+                if (keyData == (keyData | Keys.Shift))
+                {
+                    //后退一格，不用在网格内移动
+                    return ProcessLeftKey(keyData);
+                }
+                else
+                {
+                    //前进一格，不用在网格内移动
+                    return ProcessRightKey(keyData);
+                }
+            }
+            return base.ProcessDialogKey(keyData);
+        }
+
         public new bool ProcessRightKey(Keys keyData)
         {
             Console.WriteLine("ProcessRightKey");
@@ -222,14 +363,23 @@ namespace UnvaryingSagacity.AccountOfBank
                 //第一种情况：只有一行,且当光标移到最后一列时
                 if ((base.CurrentCell.ColumnIndex == (base.ColumnCount - 1)) && (base.RowCount == 1))
                 {
-                    base.CurrentCell = base.Rows[base.RowCount - 1].Cells[0];
+                    base.CurrentCell = base.Rows[base.RowCount - 1].Cells[1];
                     return true;
                 }
                 //第二种情况：有多行，且当光标移到最后一列时,移到下一行第一个单元
-                if ((base.CurrentCell.ColumnIndex == (base.ColumnCount - 1)) && (base.CurrentCell.RowIndex < (base.RowCount - 1)))
+                if (base.CurrentCell.ColumnIndex == (base.ColumnCount - 1)) 
                 {
-                    base.CurrentCell = base.Rows[base.CurrentCell.RowIndex + 1].Cells[0];
-                    return true;
+                    if ((base.CurrentCell.RowIndex < (base.RowCount - 1)))
+                    {
+                        base.CurrentCell = base.Rows[base.CurrentCell.RowIndex + 1].Cells[1];
+                        return true;
+                    }
+                    ///最后一行时，尝试跳出
+                    else
+                    {
+                        if (!(this.FindForm() as IVchViewForm).SetControlFocus(true, 1))
+                            return false;
+                    }
                 }
             }
             else if (keyData == Keys.Right)
@@ -259,13 +409,16 @@ namespace UnvaryingSagacity.AccountOfBank
             if (keyData ==(keyData | Keys.Enter))
             {
                 ///Keys.Enter 无需检查是否处于编辑模式 
-                //第一种情况：只有一行,且当光标移到第一列时
+                //第一种情况：当光标移到第一行第一列时
                 if ((base.CurrentCell.ColumnIndex <= 1) && (base.CurrentCell.RowIndex == 0))
                 {
-                    base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
+                    ///在编辑模式应跳到后一个可编辑控件
+                    ///否则不跳出网格
+                    if (!(this.FindForm() as IVchViewForm).SetControlFocus(true, -1))
+                        base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
                     return true;
                 }
-                //第二种情况：有多行，且当光标移到第一列时,移到上一行第一个单元
+                //第二种情况：有多行，且当光标移到第一列时,移到上一行最后一个单元
                 if ((base.CurrentCell.ColumnIndex <= 1) && (base.CurrentCell.RowIndex > 0))
                 {
                     base.CurrentCell = base.Rows[base.CurrentCell.RowIndex - 1].Cells[(base.ColumnCount - 1)];
@@ -276,13 +429,16 @@ namespace UnvaryingSagacity.AccountOfBank
             {
                 ///应检查是否处于编辑模式
                 ///处于编辑模式时，左右键用于在网格内部移动，直到在内容的首尾后才跳出
-                //第一种情况：只有一行,且当光标移到第一列时
+                //第一种情况：当光标移到第一行第一列时
                 if ((base.CurrentCell.ColumnIndex <= 1) && (base.CurrentCell.RowIndex == 0))
                 {
-                    base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
+                    ///应跳到后一个可编辑控件
+                    //base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
+                    if (!(this.FindForm() as IVchViewForm).SetControlFocus(true, -1))
+                        base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
                     return true;
                 }
-                //第二种情况：有多行，且当光标移到第一列时,移到上一行第一个单元
+                //第二种情况：有多行，且当光标移到第一列时,移到上一行第最后一个单元
                 if ((base.CurrentCell.ColumnIndex <= 1) && (base.CurrentCell.RowIndex > 0))
                 {
                     base.CurrentCell = base.Rows[base.CurrentCell.RowIndex - 1].Cells[(base.ColumnCount - 1)];
@@ -479,5 +635,16 @@ namespace UnvaryingSagacity.AccountOfBank
             }
         }
 
+    }
+
+    interface IVchViewForm
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isSlave">false=Form级别焦点循环，true=分录网格的焦点循环</param>
+        /// <param name="step"></param>
+        /// <returns>设置成功返回True，否则false</returns>
+        bool SetControlFocus(bool isSlave,int step);
     }
 }
