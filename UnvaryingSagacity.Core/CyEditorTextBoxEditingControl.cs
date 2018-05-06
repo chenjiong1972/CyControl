@@ -414,7 +414,7 @@ namespace UnvaryingSagacity.Core
             }
         }
 
-         //  Indicates the type against any data entered in the MaskedTextBox
+        //  Indicates the type against any data entered in the MaskedTextBox
         //  should be validated.  The MaskedTextBox control will attempt to
         //  instantiate this type and assign the value from the contents of
         //  the text box.  An error will occur if it fails to assign to this

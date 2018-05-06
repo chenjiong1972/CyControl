@@ -29,6 +29,7 @@ namespace UnvaryingSagacity.AccountOfBank
             
             dataGridView1.ColumnWidthChanged += dataGridView1_ColumnWidthChanged;
             dataGridView1.CellClick += dataGridView1_CellClick;
+           
         }
 
         protected override bool ProcessDialogKey(Keys keyData)

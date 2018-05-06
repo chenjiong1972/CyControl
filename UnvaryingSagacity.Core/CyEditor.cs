@@ -101,7 +101,6 @@ namespace UnvaryingSagacity.Core
             this.KeyPress += new KeyPressEventHandler(CyEditor_KeyPress);
             this.KeyUp += new KeyEventHandler(CyEditor_KeyUp);
             this.Paint += new PaintEventHandler(CyEditor_Paint);
-            //this.timer1.Tick += new EventHandler(timer1_Tick);
             this._timer1.Elapsed += _timer_Elapsed;
             this.VisibleChanged += new EventHandler(CyEditor_VisibleChanged);
             this.GotFocus += new EventHandler(CyEditor_GotFocus);
@@ -201,23 +200,21 @@ namespace UnvaryingSagacity.Core
         }
 
         void ShowCursor() {
-            if (this.InvokeRequired)
+            try
             {
-                ShowCursorCallback = ShowCursor;
-                this.Invoke(ShowCursorCallback);
+                if (this.InvokeRequired)
+                {
+                    ShowCursorCallback = ShowCursor;
+                    this.Invoke(ShowCursorCallback);
+                }
+                else
+                {
+                    _autoDrawCursor = !_autoDrawCursor;
+                    this.Invalidate(Rectangle.Ceiling(new RectangleF(0, ptCyCursor.Y, this.Width, CURSOR_HEIGHT)), false);
+                }
             }
-            else
-            {
-                _autoDrawCursor = !_autoDrawCursor;
-                this.Invalidate(Rectangle.Ceiling(new RectangleF(0, ptCyCursor.Y, this.Width, CURSOR_HEIGHT)), false);
-            }
+            catch (Exception ex) { }
         }
-
-        //void timer1_Tick(object sender, EventArgs e)
-        //{
-        //    _autoDrawCursor = !_autoDrawCursor;
-        //    this.Invalidate(Rectangle.Ceiling(new RectangleF(0, ptCyCursor.Y, this.Width, CURSOR_HEIGHT)), false);
-        //}
 
         void CyEditor_KeyUp(object sender, KeyEventArgs e)
         {

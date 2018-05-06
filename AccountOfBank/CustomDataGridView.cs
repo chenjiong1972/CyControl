@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace UnvaryingSagacity.AccountOfBank
 {
-    public class CustomDataGridView : DataGridView
+    internal class CustomDataGridView : DataGridView
     {
         protected override bool ProcessDialogKey(Keys keyData)
         {
