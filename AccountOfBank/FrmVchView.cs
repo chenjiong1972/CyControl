@@ -11,7 +11,7 @@ using UnvaryingSagacity.Core;
 
 namespace UnvaryingSagacity.AccountOfBank
 {
-    public partial class FrmVchView : Form, IVchViewForm
+    public partial class FrmVchView : Form//, IVchViewForm
     {
         /// <summary>
         /// FORM级别的焦点循环
@@ -131,6 +131,8 @@ namespace UnvaryingSagacity.AccountOfBank
                 }
             }
             SysnDataGridViewColumnWidth();
+            dataGridView1.BeforeLeaveGrid = SetControlFocus;
+            dataGridView2.BeforeLeaveGrid = SetControlFocus;
         }
 
         void InitControlData()
@@ -290,19 +292,20 @@ namespace UnvaryingSagacity.AccountOfBank
             return base.ProcessDialogKey(keyData);
         }
 
-        bool IVchViewForm.SetControlFocus(bool isSlave, int step)
+        public bool SetControlFocus(object grid, int step)
         {
-            if (!isSlave)
+            if (step == -1 && ((grid as Control).Name==dataGridView1.Name))
             {
                 return this.SetControlFocus(step);
             }
-            else
-                return this.SetEntryControlFocus(step);
+            return this.SetEntryControlFocus(step);
         }
     }
 
     public class VchDataGridView : DataGridView
     {
+        public BeforeLeaveGridCallback BeforeLeaveGrid { get; set; }
+
         protected override bool ProcessDataGridViewKey(KeyEventArgs e)
         {
             Console.WriteLine("VchDataGridView.ProcessDataGridViewKey");
@@ -357,16 +360,11 @@ namespace UnvaryingSagacity.AccountOfBank
         public new bool ProcessRightKey(Keys keyData)
         {
             Console.WriteLine("ProcessRightKey");
+            bool b = false;
             if (keyData == Keys.Enter)
             {
                 ///Keys.Enter 无需检查是否处于编辑模式 
-                //第一种情况：只有一行,且当光标移到最后一列时
-                if ((base.CurrentCell.ColumnIndex == (base.ColumnCount - 1)) && (base.RowCount == 1))
-                {
-                    base.CurrentCell = base.Rows[base.RowCount - 1].Cells[1];
-                    return true;
-                }
-                //第二种情况：有多行，且当光标移到最后一列时,移到下一行第一个单元
+                //当光标移到最后一列时,移到下一行第一个单元
                 if (base.CurrentCell.ColumnIndex == (base.ColumnCount - 1)) 
                 {
                     if ((base.CurrentCell.RowIndex < (base.RowCount - 1)))
@@ -377,8 +375,12 @@ namespace UnvaryingSagacity.AccountOfBank
                     ///最后一行时，尝试跳出
                     else
                     {
-                        if (!(this.FindForm() as IVchViewForm).SetControlFocus(true, 1))
-                            return false;
+                        //if (!(this.FindForm() as IVchViewForm).SetControlFocus(true, 1))
+                        if (this.BeforeLeaveGrid != null)
+                        {
+                            b = this.BeforeLeaveGrid(this, 1);
+                        }
+                        return b;
                     }
                 }
             }
@@ -386,17 +388,24 @@ namespace UnvaryingSagacity.AccountOfBank
             {
                 ///应检查是否处于编辑模式
                 ///处于编辑模式时，左右键用于在网格内部移动，直到在内容的首尾后才跳出
-                //第一种情况：只有一行,且当光标移到最后一列时
-                if ((base.CurrentCell.ColumnIndex == (base.ColumnCount - 1)) && (base.RowCount == 1))
-                {
-                    base.CurrentCell = base.Rows[base.RowCount - 1].Cells[0];
-                    return true;
-                }
                 //第二种情况：有多行，且当光标移到最后一列时,移到下一行第一个单元
-                if ((base.CurrentCell.ColumnIndex == (base.ColumnCount - 1)) && (base.CurrentCell.RowIndex < (base.RowCount - 1)))
+                if ((base.CurrentCell.ColumnIndex == (base.ColumnCount - 1)))
                 {
-                    base.CurrentCell = base.Rows[base.CurrentCell.RowIndex + 1].Cells[0];
-                    return true;
+                    if ((base.CurrentCell.RowIndex < (base.RowCount - 1)))
+                    {
+                        base.CurrentCell = base.Rows[base.CurrentCell.RowIndex + 1].Cells[1];
+                        return true;
+                    }
+                    ///最后一行时，尝试跳出
+                    else
+                    {
+                        //if (!(this.FindForm() as IVchViewForm).SetControlFocus(true, 1))
+                        if (this.BeforeLeaveGrid != null)
+                        {
+                            b = this.BeforeLeaveGrid(this, 1);
+                        }
+                        return b;
+                    }
                 }
             }
             return base.ProcessRightKey(keyData);
@@ -405,24 +414,31 @@ namespace UnvaryingSagacity.AccountOfBank
         public new bool ProcessLeftKey(Keys keyData)
         {
             Console.WriteLine("ProcessLeftKey");
+            bool b = false;
             ///第0列是分录序号列，用键盘不能进入。
             if (keyData ==(keyData | Keys.Enter))
             {
                 ///Keys.Enter 无需检查是否处于编辑模式 
                 //第一种情况：当光标移到第一行第一列时
-                if ((base.CurrentCell.ColumnIndex <= 1) && (base.CurrentCell.RowIndex == 0))
+                if ((base.CurrentCell.ColumnIndex <= 1))
                 {
-                    ///在编辑模式应跳到后一个可编辑控件
-                    ///否则不跳出网格
-                    if (!(this.FindForm() as IVchViewForm).SetControlFocus(true, -1))
-                        base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
-                    return true;
-                }
-                //第二种情况：有多行，且当光标移到第一列时,移到上一行最后一个单元
-                if ((base.CurrentCell.ColumnIndex <= 1) && (base.CurrentCell.RowIndex > 0))
-                {
-                    base.CurrentCell = base.Rows[base.CurrentCell.RowIndex - 1].Cells[(base.ColumnCount - 1)];
-                    return true;
+                    if (base.CurrentCell.RowIndex == 0)
+                    {
+                        ///尝试跳出
+                        if (this.BeforeLeaveGrid != null)
+                        {
+                            b = this.BeforeLeaveGrid(this, -1);
+                        }
+                        if (!b)
+                            base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
+                        return true;
+                    }
+                    else
+                    {
+                        //当光标移到第一列时,移到上一行最后一个单元
+                        base.CurrentCell = base.Rows[base.CurrentCell.RowIndex - 1].Cells[(base.ColumnCount - 1)];
+                        return true;
+                    }
                 }
             }
             if (keyData == Keys.Left)
@@ -430,19 +446,26 @@ namespace UnvaryingSagacity.AccountOfBank
                 ///应检查是否处于编辑模式
                 ///处于编辑模式时，左右键用于在网格内部移动，直到在内容的首尾后才跳出
                 //第一种情况：当光标移到第一行第一列时
-                if ((base.CurrentCell.ColumnIndex <= 1) && (base.CurrentCell.RowIndex == 0))
+                if (base.CurrentCell.ColumnIndex <= 1) 
                 {
-                    ///应跳到后一个可编辑控件
-                    //base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
-                    if (!(this.FindForm() as IVchViewForm).SetControlFocus(true, -1))
-                        base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
-                    return true;
-                }
-                //第二种情况：有多行，且当光标移到第一列时,移到上一行第最后一个单元
-                if ((base.CurrentCell.ColumnIndex <= 1) && (base.CurrentCell.RowIndex > 0))
-                {
-                    base.CurrentCell = base.Rows[base.CurrentCell.RowIndex - 1].Cells[(base.ColumnCount - 1)];
-                    return true;
+                    if (base.CurrentCell.RowIndex == 0)
+                    {
+                        ///尝试跳出
+                        //if (!(this.FindForm() as IVchViewForm).SetControlFocus(true, -1))
+                        if (this.BeforeLeaveGrid != null)
+                        {
+                            b = this.BeforeLeaveGrid(this, -1);
+                        }
+                        if (!b)
+                            base.CurrentCell = base.Rows[0].Cells[(base.ColumnCount - 1)];
+                        return true;
+                    }
+                    else
+                    {
+                        //当光标移到第一列时,移到上一行最后一个单元
+                        base.CurrentCell = base.Rows[base.CurrentCell.RowIndex - 1].Cells[(base.ColumnCount - 1)];
+                        return true;
+                    }
                 }
             }
             return base.ProcessLeftKey(keyData);
@@ -637,14 +660,7 @@ namespace UnvaryingSagacity.AccountOfBank
 
     }
 
-    interface IVchViewForm
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="isSlave">false=Form级别焦点循环，true=分录网格的焦点循环</param>
-        /// <param name="step"></param>
-        /// <returns>设置成功返回True，否则false</returns>
-        bool SetControlFocus(bool isSlave,int step);
-    }
+    public delegate bool BeforeLeaveGridCallback(object sender,int moveoutStep);
+
+
 }
